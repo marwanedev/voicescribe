@@ -1,33 +1,42 @@
-# VoiceScribe: Multilingual Speech-to-Text & Timestamped Subtitle System
+# VoiceScribe: Bilingual (EN/FR) Speech-to-Text & Subtitle System
 
 **Course:** Yapay Zekâ Dersi (Artificial Intelligence)  
+**Languages:** English (`en`) & French (`fr`)  
+**Repository:** https://github.com/marwanedev/voicescribe  
 **Deliverables:** Source Code, Academic Report, Presentation (`yapayzekaproje80@gmail.com`)
 
 ---
 
 ## Project Overview
 
-VoiceScribe is an Automatic Speech Recognition (ASR) and subtitle generation system built around OpenAI's **Whisper** Encoder-Decoder Transformer architecture, paired with an experimental benchmark suite and a **Streamlit** web interface.
+VoiceScribe is an **offline** Automatic Speech Recognition (ASR) and timestamped subtitle generation system built with OpenAI's open-source **Whisper** Encoder-Decoder Transformer, a custom **MFCC-based Language Identification classifier**, an experimental evaluation suite, and a **Streamlit** web interface.
+
+We follow an **MVP-First** engineering strategy:
+1. **MVP (Core Working System):** Audio upload (`MP3`, `WAV`, `MP4`) $\rightarrow$ Preprocessing (`16 kHz` mono) $\rightarrow$ Language Detection (`EN` / `FR`) $\rightarrow$ Whisper Transcription $\rightarrow$ Timestamped `.srt` / `.txt` export in Streamlit + reproducible evaluation benchmarks.
+2. **v2 Upgrade (Live Transcription):** Real-time microphone capture + Voice Activity Detection (VAD) phrase segmentation + live streaming captions.
 
 ### Research Question
-> *How do different Whisper model capacities (`tiny`, `base`, `small`) and decoding/preprocessing choices (beam search, VAD filtering, acoustic noise) trade off transcription accuracy (WER/CER), spoken language identification performance (Accuracy, Precision, Recall, F1, ROC-AUC), and real-time inference speed (RTF) across multiple languages?*
+> *How do different local Whisper model capacities (`tiny`, `base`, `small`) and decoding/noise settings trade off English and French transcription accuracy (WER/CER), spoken language classification performance (Accuracy, Precision, Recall, F1-Score, ROC-AUC vs. a custom MFCC baseline), and inference speed (Real-Time Factor)?*
 
 ---
 
-## Planned Architecture
+## Planned Repository Structure
 
 ```text
 VOICESCRIBE/
+├── docs/
+│   └── VoiceScribe_Teammate_Guide.pdf   # Step-by-step architecture, UI, stack & roadmap guide
 ├── src/
-│   ├── audio_utils.py       # Audio loading, resampling (16 kHz mono), Log-Mel feature inspection
-│   ├── asr_engine.py        # Whisper model loading, language ID, decoding & hyperparameters
+│   ├── audio_utils.py       # FFmpeg loading, 16 kHz resampling, MFCC & Log-Mel inspection
+│   ├── lid_classifier.py    # Custom MFCC + Scikit-Learn EN/FR Language ID baseline
+│   ├── asr_engine.py        # Local Whisper inference, language probs, beam/temp tuning
 │   ├── subtitle_utils.py    # Timestamp formatting and .srt / .txt export
-│   └── vad_mic.py           # Voice Activity Detection & live microphone capture
+│   └── vad_mic.py           # [v2] Live microphone capture & VAD silence filtering
 ├── experiments/
-│   ├── eda.py               # Dataset descriptive statistics (mean, median, mode) & plots
-│   ├── evaluate_asr.py      # WER, CER, and Real-Time Factor (RTF) across model sizes
-│   └── evaluate_lid.py      # Language ID metrics: Accuracy, Precision, Recall, F1, ROC-AUC
-├── app.py                   # Streamlit web application
+│   ├── eda.py               # Dataset descriptive stats (mean, median, mode) & charts
+│   ├── evaluate_asr.py      # WER, CER, and RTF benchmarks (tiny vs base vs small)
+│   └── evaluate_lid.py      # EN/FR Language ID: Accuracy, Precision, Recall, F1, ROC-AUC
+├── app.py                   # Streamlit web interface
 ├── requirements.txt
 ├── TIMELINE.md
 └── README.md
@@ -35,12 +44,14 @@ VOICESCRIBE/
 
 ---
 
-## Status
+## Progress
 
-- [x] Phase 0: Repository initialized
+- [x] Phase 0a: Repository initialized & connected to GitHub
+- [x] Teammate Guide PDF created (`docs/VoiceScribe_Teammate_Guide.pdf`)
+- [ ] Phase 0b: Python `.venv` & dependency verification
 - [ ] Phase 1: Literature Review (20–30 papers) & Research Question
-- [ ] Phase 2: Dataset Selection & Exploratory Data Analysis (EDA)
-- [ ] Phase 3: Core ASR Pipeline (built & understood module-by-module)
-- [ ] Phase 4: Experiments & Metric Analysis
-- [ ] Phase 5: Streamlit UI Integration
-- [ ] Phase 6: Academic Report, Presentation & Defense Prep
+- [ ] Phase 2: English & French Dataset + Exploratory Data Analysis (EDA)
+- [ ] Phase 3: MVP Core Pipeline (`src/` + `app.py` for file upload & `.srt`/`.txt`)
+- [ ] Phase 4: v2 Live Microphone Transcription + VAD (`src/vad_mic.py`)
+- [ ] Phase 5: Experimental Benchmarks & Ablation Studies (`experiments/`)
+- [ ] Phase 6: Academic Report (Turnitin AI $\le 40\%$), Slides & Defense Prep
