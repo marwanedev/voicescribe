@@ -44,11 +44,32 @@ VOICESCRIBE/
 
 ---
 
+## Quick Teammate Setup (Exact Same Stack Versions)
+
+Both teammates use **Python 3.14.x**, **FFmpeg 9.x**, and exact pinned versions in `requirements.txt`.
+
+1. **Install FFmpeg** (if not already installed on Windows):
+   ```powershell
+   winget install Gyan.FFmpeg
+   ```
+2. **Clone & run the one-command environment setup:**
+   ```powershell
+   git clone https://github.com/marwanedev/voicescribe.git
+   cd voicescribe
+   .\setup_env.ps1
+   ```
+3. **Verify at any time that all package versions match 100%:**
+   ```powershell
+   .\.venv\Scripts\python.exe scripts/check_env.py
+   ```
+
+---
+
 ## Progress
 
 - [x] Phase 0a: Repository initialized & connected to GitHub
 - [x] Teammate Guide PDF created (`docs/VoiceScribe_Teammate_Guide.pdf`)
-- [ ] Phase 0b: Python `.venv` & dependency verification
+- [x] Phase 0b: Python `.venv`, pinned `requirements.txt`, and `scripts/check_env.py` verified
 - [ ] Phase 1: Literature Review (20–30 papers) & Research Question
 - [ ] Phase 2: English & French Dataset + Exploratory Data Analysis (EDA)
 - [ ] Phase 3: MVP Core Pipeline (`src/` + `app.py` for file upload & `.srt`/`.txt`)
