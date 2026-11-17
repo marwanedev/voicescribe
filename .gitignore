@@ -24,6 +24,7 @@ models/
 outputs/
 *.mp3
 *.wav
+!data/samples/*.wav
 *.mp4
 *.m4a
 *.flac
