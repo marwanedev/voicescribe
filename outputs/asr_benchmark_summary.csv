@@ -1,0 +1,6 @@
+Configuration,Model,Params_M,Beam_Size,Condition,Overall_WER_%,Overall_CER_%,EN_WER_%,FR_WER_%,EN_CER_%,FR_CER_%,Avg_Time_s,Mean_RTF
+"tiny (beam=1, clean)",tiny,39,1,Clean,43.05,20.16,27.27,56.56,12.77,26.85,2.71,0.545
+"tiny (beam=5, clean)",tiny,39,5,Clean,65.12,31.76,21.05,102.87,10.96,50.56,5.145,1.058
+"base (beam=1, clean)",base,74,1,Clean,26.93,12.62,12.92,38.93,5.62,18.95,6.126,1.236
+"small (beam=1, clean)",small,244,1,Clean,11.92,6.03,4.31,18.44,1.94,9.72,17.851,3.569
+"base (beam=1, 8dB noise)",base,74,1,Noisy (8.0 dB),144.59,77.33,38.28,235.66,18.53,130.49,6.255,1.242

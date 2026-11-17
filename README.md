@@ -70,9 +70,9 @@ Both teammates use **Python 3.14.x**, **FFmpeg 9.x**, and exact pinned versions 
 - [x] Phase 0a: Repository initialized & connected to GitHub
 - [x] Teammate Guide PDF created (`docs/VoiceScribe_Teammate_Guide.pdf`)
 - [x] Phase 0b: Python `.venv`, pinned `requirements.txt`, and `scripts/check_env.py` verified
-- [ ] Phase 1: Literature Review (20–30 papers) & Research Question
-- [ ] Phase 2: English & French Dataset + Exploratory Data Analysis (EDA)
-- [ ] Phase 3: MVP Core Pipeline (`src/` + `app.py` for file upload & `.srt`/`.txt`)
-- [ ] Phase 4: v2 Live Microphone Transcription + VAD (`src/vad_mic.py`)
-- [ ] Phase 5: Experimental Benchmarks & Ablation Studies (`experiments/`)
+- [ ] Phase 1: Literature Review (20–30 papers) — *saved for report writing*
+- [x] Phase 2: English & French Dataset (`N=200`) + Exploratory Data Analysis (`experiments/eda.py`)
+- [x] Phase 3: MVP Core Pipeline (`src/` + `app.py` for file upload & `.srt`/`.txt`)
+- [x] Phase 4: v2 Live Microphone Transcription + VAD (`src/vad_mic.py`)
+- [x] Phase 5: Experimental Benchmarks & Ablation Studies (`experiments/evaluate_lid.py` & `experiments/evaluate_asr.py`)
 - [ ] Phase 6: Academic Report (Turnitin AI $\le 40\%$), Slides & Defense Prep
