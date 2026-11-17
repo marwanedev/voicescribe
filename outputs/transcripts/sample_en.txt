@@ -1,0 +1,2 @@
+Hello and welcome to VoiceScribe.
+This is an automatic speech recognition and subtitle generation test in English.

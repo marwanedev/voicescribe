@@ -1,0 +1,7 @@
+1
+00:00:00,000 --> 00:00:02,000
+Hello and welcome to VoiceScribe.
+
+2
+00:00:02,560 --> 00:00:07,280
+This is an automatic speech recognition and subtitle generation test in English.

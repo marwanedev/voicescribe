@@ -25,6 +25,7 @@ from src.audio_utils import (
     load_and_preprocess_audio,
     plot_audio_features,
 )
+from src.lid_classifier import predict_language_mfcc
 from src.subtitle_utils import segments_to_srt, segments_to_txt
 from src.vad_mic import apply_vad_filter, record_from_microphone
 
@@ -191,20 +192,29 @@ def render_results_panel(data: Dict[str, Any], key_prefix: str = "mvp") -> None:
     st.divider()
     st.subheader("📊 [5] Language Identification & Performance Metrics")
 
-    col1, col2, col3, col4 = st.columns(4)
+    mfcc_lid = predict_language_mfcc(data["waveform"])
+
+    col1, col2, col3, col4, col5 = st.columns(5)
     col1.metric(
-        "Detected Language",
+        "Whisper Language ID",
         f"{lid['predicted_lang_name']} ({lid['predicted_lang'].upper()})",
     )
     col2.metric(
-        "EN vs FR Confidence",
+        "Whisper Confidence",
         f"{lid['confidence'] * 100:.2f}%",
     )
-    col3.metric(
+    if mfcc_lid is not None:
+        col3.metric(
+            "Custom MFCC Model",
+            f"{mfcc_lid['predicted_lang_name']} ({mfcc_lid['confidence'] * 100:.1f}%)",
+        )
+    else:
+        col3.metric("Custom MFCC Model", "Not Trained")
+    col4.metric(
         "Audio Duration",
         f"{asr['audio_duration_sec']} s",
     )
-    col4.metric(
+    col5.metric(
         "CPU Time (RTF)",
         f"{asr['inference_time_sec']} s ({asr['rtf']}x)",
     )

@@ -18,10 +18,8 @@ env/
 # Jupyter
 .ipynb_checkpoints/
 
-# Large audio, video, dataset, and model files
+# Large audio, video, dataset, and raw model weights
 data/raw/
-models/
-outputs/
 *.mp3
 *.wav
 !data/samples/*.wav
