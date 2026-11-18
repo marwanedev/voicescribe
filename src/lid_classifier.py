@@ -86,30 +86,41 @@ def build_feature_dataset(
     metadata_csv: Path = METADATA_CSV,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, pd.DataFrame]:
     """
-    Extract 26-D MFCC feature vectors for all clips in `data/metadata.csv` (with realistic
-    microphone channel & noise conditions) and split into `X_train, y_train, X_test, y_test`.
+    Extract 26-D MFCC feature vectors for all clips in `data/metadata.csv`.
+
+    - Training split (`split == 'train'`, 160 clips): uses standard Data Augmentation
+      by including BOTH the original 16 kHz waveform AND a noisy/channel-tilted version
+      (320 training samples total) so the classifier generalizes to both clean files and
+      noisy microphones.
+    - Test split (`split == 'test'`, 40 clips): held strictly unseen and evaluated under
+      challenging noisy/channel conditions.
     """
     df = pd.read_csv(metadata_csv)
-    features = []
+    X_train_list, y_train_list = [], []
+    X_test_list, y_test_list = [], []
+
     for idx, row in df.iterrows():
         wav_path = PROJECT_ROOT / str(row["file_path"])
         waveform = load_and_preprocess_audio(wav_path, target_sr=SAMPLE_RATE)
-        is_test = str(row["split"]) == "test"
-        noisy_wave = augment_acoustic_channel(waveform, seed=5000 + int(idx), is_test=is_test)
-        _, vec26 = extract_mfcc_features(noisy_wave, sr=SAMPLE_RATE, n_mfcc=13)
-        features.append(vec26)
+        label = int(row["label"])  # 0 = English, 1 = French
 
-    X_all = np.vstack(features).astype(np.float32)
-    y_all = df["label"].values.astype(int)  # 0 = English, 1 = French
-
-    train_mask = (df["split"] == "train").values
-    test_mask = (df["split"] == "test").values
+        if str(row["split"]) == "train":
+            _, clean_vec = extract_mfcc_features(waveform, sr=SAMPLE_RATE, n_mfcc=13)
+            noisy_wave = augment_acoustic_channel(waveform, seed=5000 + int(idx), is_test=False)
+            _, noisy_vec = extract_mfcc_features(noisy_wave, sr=SAMPLE_RATE, n_mfcc=13)
+            X_train_list.extend([clean_vec, noisy_vec])
+            y_train_list.extend([label, label])
+        else:
+            noisy_wave = augment_acoustic_channel(waveform, seed=5000 + int(idx), is_test=True)
+            _, noisy_vec = extract_mfcc_features(noisy_wave, sr=SAMPLE_RATE, n_mfcc=13)
+            X_test_list.append(noisy_vec)
+            y_test_list.append(label)
 
     return (
-        X_all[train_mask],
-        y_all[train_mask],
-        X_all[test_mask],
-        y_all[test_mask],
+        np.vstack(X_train_list).astype(np.float32),
+        np.array(y_train_list, dtype=int),
+        np.vstack(X_test_list).astype(np.float32),
+        np.array(y_test_list, dtype=int),
         df,
     )
 
