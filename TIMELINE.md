@@ -77,8 +77,8 @@
 ---
 
 ## Phase 6: Academic Report, Presentation & Defense Prep (Days 18–21)
-- **Course Rule:** Report checked via Turnitin (**AI detection $\le 40\%$**); submit Report + Source Code + Slides to `yapayzekaproje80@gmail.com`.
+- **Deliverables:** Full Academic Report, Source Code, and Presentation Slides.
 - **Tasks:**
   - Write all required academic sections in **your own words** (Abstract, Introduction, Literature Review, Experimental Methods, Results, Discussion, Conclusion, References).
-  - Prepare presentation slides covering all 8 required sections + live demo video/backup.
+  - Prepare presentation slides covering all required sections + live demo video/backup.
   - Practice Q&A so both teammates can explain MFCCs, Log-Mel Spectrograms, Whisper's Encoder-Decoder, WER vs. ROC-AUC, and limitations.

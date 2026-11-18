@@ -1,9 +1,9 @@
 # VoiceScribe: Bilingual (EN/FR) Speech-to-Text & Subtitle System
 
-**Course:** Yapay Zekâ Dersi (Artificial Intelligence)  
+**Course:** Artificial Intelligence Project  
 **Languages:** English (`en`) & French (`fr`)  
 **Repository:** https://github.com/marwanedev/voicescribe  
-**Deliverables:** Source Code, Academic Report, Presentation (`yapayzekaproje80@gmail.com`)
+**Deliverables:** Source Code, Technical Report, Presentation Slides
 
 ---
 
@@ -75,4 +75,4 @@ Both teammates use **Python 3.14.x**, **FFmpeg 9.x**, and exact pinned versions 
 - [x] Phase 3: MVP Core Pipeline (`src/` + `app.py` for file upload & `.srt`/`.txt`)
 - [x] Phase 4: v2 Live Microphone Transcription + VAD (`src/vad_mic.py`)
 - [x] Phase 5: Experimental Benchmarks & Ablation Studies (`experiments/evaluate_lid.py` & `experiments/evaluate_asr.py`)
-- [ ] Phase 6: Academic Report (Turnitin AI $\le 40\%$), Slides & Defense Prep
+- [ ] Phase 6: Technical Report, Presentation Slides & Defense Prep
